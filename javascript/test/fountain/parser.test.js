@@ -228,6 +228,10 @@ describe('FountainParser', () => {
       let output = fp.script.dump();
       //console.log(output);
       assert.equal(output, match);
+
+      // Boneyard markers should be stripped from the clean text
+      const action = fp.script.elements[2];
+      assert.equal(action.text, action.textRaw.replace("/*0*/", ""));
     });
   });
 

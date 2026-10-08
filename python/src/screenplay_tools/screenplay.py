@@ -29,7 +29,7 @@ class Element:
     def text(self):
         # This version will not contain any annotations / note markup
         import re
-        regex = r"\[\[\d+\]\]|\/*\d+\*/"
+        regex = r"\[\[\d+\]\]|\/\*\d+\*/"
         return re.sub(regex, "", self._text)
 
     @property

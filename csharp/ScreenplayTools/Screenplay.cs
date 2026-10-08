@@ -61,7 +61,7 @@ public abstract class Element
         return $"{Type}:\"{_textRaw}\"";
     }
 
-    private static readonly Regex _regexCleanText = new Regex(@"\[\[\d+\]\]|\/*\d+\*\/", RegexOptions.Compiled);
+    private static readonly Regex _regexCleanText = new Regex(@"\[\[\d+\]\]|\/\*\d+\*\/", RegexOptions.Compiled);
 
     private void _updateText() {
         _textClean = _regexCleanText.Replace(_textRaw, "");

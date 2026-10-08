@@ -35,7 +35,7 @@ std::string Element::dump() const {
 }
 
 void Element::_updateText() {
-  const std::regex regex(R"(\[\[\d+\]\]|\/*\d+\*\/)");
+  const std::regex regex(R"(\[\[\d+\]\]|\/\*\d+\*\/)");
   _textClean = std::regex_replace(_textRaw, regex, "");
 }
 

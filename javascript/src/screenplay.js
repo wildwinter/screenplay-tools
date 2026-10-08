@@ -27,7 +27,7 @@ export class Element {
 
     // This version will not contain any annotations / note markup
     get text() {
-        const regex = /\[\[\d+\]\]|\/*\d+\*\//g;
+        const regex = /\[\[\d+\]\]|\/\*\d+\*\//g;
         return this._text.replace(regex, "");
     }
 

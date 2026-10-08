@@ -202,6 +202,10 @@ class TestParser(unittest.TestCase):
         output = fp.script.dump();
         #print(output)
         self.assertMultiLineEqual(match, output)
+
+        # Boneyard markers should be stripped from the clean text
+        action = fp.script.elements[2]
+        self.assertEqual(action.text, action.text_raw.replace("/*0*/", ""))
     
     def test_sections(self):
 
