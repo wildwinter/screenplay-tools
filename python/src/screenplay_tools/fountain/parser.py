@@ -299,7 +299,7 @@ class Parser:
         Parses a scene heading.
         A scene heading starts with keywords like INT, EXT, EST, INT./EXT, etc.
         """
-        regex_heading = re.compile(r"^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s))|(FADE IN:\s*)", re.IGNORECASE)
+        regex_heading = re.compile(r"^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s))", re.IGNORECASE)
         if regex_heading.match(self._lineTrim):
             heading_data = self._decode_heading(self._lineTrim)
             if heading_data:

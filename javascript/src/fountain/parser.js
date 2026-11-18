@@ -17,7 +17,7 @@ const REGEX_PAGE_BREAK = /^\s*={3,}\s*$/;
 const REGEX_SYNOPSIS = /^=(?!\=)/;
 const REGEX_HEADING_DECODE = /^(.*?)(?:\s*#([a-zA-Z0-9\-.]+)#)?$/;
 const REGEX_FORCED_SCENE_HEADING = /^\.[a-zA-Z0-9]/;
-const REGEX_SCENE_HEADING = /^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s))|(FADE IN:\s*)/i;
+const REGEX_SCENE_HEADING = /^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s))/i;
 const REGEX_FORCED_TRANSITION = /^\s*(?:[A-Z\s]+TO:)\s*$/;
 const REGEX_PARENTHETICAL = /^\s*\((.*)\)\s*$/
 const REGEX_CONT = /\(\s*CONT[’']D\s*\)/g;

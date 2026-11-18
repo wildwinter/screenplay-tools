@@ -110,7 +110,7 @@ public class Parser
     private static readonly Regex _regexSynopsis = new Regex(@"^=(?!\=)", RegexOptions.Compiled);
     private static readonly Regex _regexSceneHeadingDecode = new Regex(@"^(.*?)(?:\s*#([a-zA-Z0-9\-.]+)#)?$", RegexOptions.Compiled);
     private static readonly Regex _regexForcedSceneHeading = new Regex(@"^\.[a-zA-Z0-9]", RegexOptions.Compiled);
-    private static readonly Regex _regexSceneHeading = new Regex(@"^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s))|(FADE IN:\s*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex _regexSceneHeading = new Regex(@"^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private static readonly Regex _regexTransition = new Regex(@"^\s*(?:[A-Z\s]+TO:)\s*$", RegexOptions.Compiled);
     private static readonly Regex _regexParenthetical = new Regex(@"^\s*\((.*)\)\s*$", RegexOptions.Compiled);
     private static readonly Regex _regexCont = new Regex(@"\(\s*CONT[’']D\s*\)", RegexOptions.Compiled);

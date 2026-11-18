@@ -1,5 +1,9 @@
 HEADING:"INT. SCEHE 1 - DAY"
-ACTION:"This is scene 1, we think!"
+ACTION:"This is scene 1, we think!
+
+FADE IN:
+
+The lights fade in: slowly."
 CHARACTER:"DAVE"
 DIALOGUE:"Nice day, right?"
 TRANSITION:"CUT TO:"

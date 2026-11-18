@@ -272,7 +272,7 @@ bool Parser::_parseForcedSceneHeading() {
 
 bool Parser::_parseSceneHeading() {
   static const std::regex regexHeading(
-      R"(^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s))|(FADE IN:\s*))",
+      R"(^\s*((INT|EXT|EST|INT\.\/EXT|INT\/EXT|I\/E)(\.|\s)))",
       std::regex::icase);
 
   std::smatch match;
