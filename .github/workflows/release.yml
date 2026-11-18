@@ -49,12 +49,15 @@ jobs:
         working-directory: javascript
         run: npm ci && npm test
       - name: Python tests
+        if: ${{ !cancelled() }}
         working-directory: python
         run: python -m unittest discover -s tests
       - name: C# tests
+        if: ${{ !cancelled() }}
         working-directory: csharp
         run: npm run test
       - name: C++ tests
+        if: ${{ !cancelled() }}
         working-directory: cpp
         run: npm run test
 

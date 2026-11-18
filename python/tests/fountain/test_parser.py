@@ -48,7 +48,7 @@ class TestParser(unittest.TestCase):
     def test_actions(self):
 
         source = self._load_file("Action.fountain")
-        match = self._load_file("Action-merged.txt")
+        match = self._load_file("Action-Merged.txt")
 
         fp = Parser()
         fp.add_text(source)
@@ -60,7 +60,7 @@ class TestParser(unittest.TestCase):
     def test_actions_unmerged(self):
 
         source = self._load_file("Action.fountain")
-        match = self._load_file("Action-unmerged.txt")
+        match = self._load_file("Action-Unmerged.txt")
 
         fp = Parser()
         fp.mergeActions = False;
@@ -85,7 +85,7 @@ class TestParser(unittest.TestCase):
     def test_dialogue(self):
 
         source = self._load_file("Dialogue.fountain")
-        match = self._load_file("Dialogue-merged.txt")
+        match = self._load_file("Dialogue-Merged.txt")
 
         fp = Parser()
         fp.add_text(source)
@@ -97,7 +97,7 @@ class TestParser(unittest.TestCase):
     def test_dialogue_unmerged(self):
 
         source = self._load_file("Dialogue.fountain")
-        match = self._load_file("Dialogue-unmerged.txt")
+        match = self._load_file("Dialogue-Unmerged.txt")
 
         fp = Parser()
         fp.mergeDialogue = False
