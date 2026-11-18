@@ -6,6 +6,7 @@
 #include "screenplay_tools/fdx/parser.h"
 #include "screenplay_tools/fdx/writer.h"
 #include "screenplay_tools/fountain/parser.h"
+#include <filesystem>
 #include <fstream>
 
 using namespace ScreenplayTools;
