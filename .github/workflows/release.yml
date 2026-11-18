@@ -1,0 +1,123 @@
+name: Release
+
+# Runs when a version tag is pushed (made by `npm run bump <version>`).
+# Checks the version files match the tag, runs all four test suites, builds the
+# four zips, creates the GitHub release with them, and publishes to PyPI.
+#
+# PyPI publishing uses trusted publishing (OIDC): pypi.org trusts this repo,
+# this workflow file and the `pypi` environment, so no token is stored anywhere.
+on:
+  push:
+    tags: ["v*.*.*"]
+
+concurrency: release-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check version files match the tag
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          root=$(node -p "require('./package.json').version")
+          py=$(sed -n 's/^version *= *"\(.*\)"/\1/p' python/pyproject.toml)
+          cs=$(sed -n 's/.*<Version>\(.*\)<\/Version>.*/\1/p' csharp/ScreenplayTools/ScreenplayTools.csproj)
+          echo "tag=$tag package.json=$root pyproject.toml=$py csproj=$cs"
+          [ "$root" = "$tag" ] && [ "$py" = "$tag" ] && [ "$cs" = "$tag" ] || {
+            echo "::error::Version files don't match tag v$tag. Use npm run bump."
+            exit 1
+          }
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: javascript/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: JavaScript tests
+        working-directory: javascript
+        run: npm ci && npm test
+      - name: Python tests
+        working-directory: python
+        run: python -m unittest discover -s tests
+      - name: C# tests
+        working-directory: csharp
+        run: npm run test
+      - name: C++ tests
+        working-directory: cpp
+        run: npm run test
+
+  github-release:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: javascript/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Build the four zips
+        run: |
+          (cd javascript && npm ci)
+          npm run pack:all
+          ls -l "dist/${GITHUB_REF_NAME}"
+
+      - name: Write release notes from commits since the last tag
+        run: |
+          prev=$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)
+          range="${prev:+$prev..}${GITHUB_REF_NAME}"
+          git log "$range" --no-merges --format='- %s' | grep -v '^- Bump version' > notes.md || true
+          cat notes.md
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" "dist/${GITHUB_REF_NAME}"/*.zip \
+            --title "${GITHUB_REF_NAME}" --notes-file notes.md --verify-tag
+
+  pypi:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/screenplay-tools/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Build the sdist and wheel
+        working-directory: python
+        run: |
+          cp ../README.md ./README.md
+          python -m pip install --upgrade build
+          python -m build --outdir pip-dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python/pip-dist/

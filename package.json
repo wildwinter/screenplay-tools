@@ -3,6 +3,7 @@
   "version": "0.0.10",
   "description": "Multi-language utils for parsing and writing screenplays in the Fountain and FDX scriptwriting formats.",
   "scripts": {
+    "bump": "node scripts/bump.mjs",
     "clean": "npm run clean:all",
     "clean:cpp": "cd cpp && npm run clean",
     "clean:cs": "cd csharp && npm run clean",
