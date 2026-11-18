@@ -7,7 +7,7 @@
     
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <PackageId>ScreenplayTools</PackageId>
-    <Version>0.0.5</Version>
+    <Version>0.0.11</Version>
     <Authors>Ian Thomas</Authors>
     <Company>Storyworlds</Company>
     <Description>A library to parse Fountain format script files.</Description>

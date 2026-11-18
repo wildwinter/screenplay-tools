@@ -1,6 +1,6 @@
 {
   "name": "screenplay-tools",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Multi-language utils for parsing and writing screenplays in the Fountain and FDX scriptwriting formats.",
   "scripts": {
     "bump": "node scripts/bump.mjs",
